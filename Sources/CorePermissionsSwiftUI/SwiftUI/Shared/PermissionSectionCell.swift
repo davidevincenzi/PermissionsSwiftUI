@@ -128,6 +128,9 @@ struct PermissionSectionCell: View {
                 allowButtonStatus = .denied
                 permissionComponent.authorized = false
                 (schemaStore.erroneousPermissions?.append(result)) ?? (schemaStore.erroneousPermissions = [result])
+		if let url = URL(string: UIApplication.openSettingsURLString) {
+		        UIApplication.shared.open(url)
+    		}
             }
         }
     }
