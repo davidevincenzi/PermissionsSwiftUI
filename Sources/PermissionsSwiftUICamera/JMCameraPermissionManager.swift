@@ -10,13 +10,12 @@ import Foundation
 import CorePermissionsSwiftUI
 
 @available(iOS 13.0, tvOS 13.0, *)
-public extension PermissionManager {
-    ///Permission that allows developers to interact with on-device camera
+public extension PermissionType.PermissionManager {
     static let camera = JMCameraPermissionManager()
 }
 
 @available(iOS 13.0, tvOS 13.0, *)
-public final class JMCameraPermissionManager: PermissionManager {
+public final class JMCameraPermissionManager: PermissionType.PermissionManager {
     
     
     public override var permissionType: PermissionType {

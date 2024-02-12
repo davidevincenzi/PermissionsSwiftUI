@@ -25,10 +25,10 @@ extension View {
     @ViewBuilder
     func compatibleForegroundStyle(_ style: any ShapeStyle) -> some View {
         if #available(iOS 15, *) {
-            self.foregroundStyle(style).typeErased()
+            self.foregroundStyle(style)
         }
         else {
-            self.foregroundColor(style as? Color).typeErased()
+            self.foregroundColor(style as? Color)
         }
     }
 }

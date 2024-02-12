@@ -11,13 +11,12 @@ import CorePermissionsSwiftUI
 
 #if !os(tvOS)
 @available(iOS 13.0, tvOS 13.0, *)
-public extension PermissionManager {
-    ///The `locationAlways` permission provides location data even if app is in background
+public extension PermissionType.PermissionManager {
     static let locationAlways = JMLocationAlwaysPermissionManager()
 }
 
 @available(iOS 13.0, tvOS 13.0, *)
-public final class JMLocationAlwaysPermissionManager: PermissionManager, CLLocationManagerDelegate {
+public final class JMLocationAlwaysPermissionManager: PermissionType.PermissionManager, CLLocationManagerDelegate {
     
 
     typealias authorizationStatus = CLAuthorizationStatus

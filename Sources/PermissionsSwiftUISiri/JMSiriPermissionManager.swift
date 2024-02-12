@@ -10,13 +10,12 @@ import CorePermissionsSwiftUI
 import Intents
 
 @available(iOS 13.0, tvOS 13.0, *)
-public extension PermissionManager {
-    ///Permission that allows Siri and Maps to communicate with your app
+public extension PermissionType.PermissionManager {
     static let siri = JMSiriPermissionManager()
 }
 
 @available(iOS 13.0, tvOS 13.0, *)
-public final class JMSiriPermissionManager: PermissionManager {
+public final class JMSiriPermissionManager: PermissionType.PermissionManager {
     
     
     public override var permissionType: PermissionType {

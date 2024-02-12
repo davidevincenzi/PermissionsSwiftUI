@@ -10,13 +10,12 @@ import Photos
 import CorePermissionsSwiftUI
 
 @available(iOS 13.0, tvOS 13.0, *)
-public extension PermissionManager {
-    ///Used to access the user's photo library
+public extension PermissionType.PermissionManager {
     static let photo = JMPhotoPermissionManager()
 }
 
 @available(iOS 13.0, tvOS 13.0, *)
-public final class JMPhotoPermissionManager: PermissionManager {
+public final class JMPhotoPermissionManager: PermissionType.PermissionManager {
     
     
     public override var permissionType: PermissionType {

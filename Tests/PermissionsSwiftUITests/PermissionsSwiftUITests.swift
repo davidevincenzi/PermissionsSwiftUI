@@ -307,7 +307,7 @@ final class PermissionsSwiftUITests: XCTestCase {
 //    func testModalViewSnapshot(){
 //        if #available(iOS 14, *) {
 //            let store = PermissionStore()
-//            store.permissions = [PermissionManager].allCases
+//            store.permissions = [PermissionType.PermissionManager].allCases
 //            store.configStore.autoCheckAuth = false
 //            let view = ModalView(showModal: .constant(true)).withEnvironmentObjects(store: store, permissionStyle: .modal)
 //            assertSnapshot(matching: view.referenceFrame(count: store.permissions.count), as: .image(precision: 0.99))
@@ -331,7 +331,7 @@ final class PermissionsSwiftUITests: XCTestCase {
 //
 //    }
 //    func testPermissionCell(){
-//        for permission in [PermissionManager].allCases {
+//        for permission in [PermissionType.PermissionManager].allCases {
 //            let currentPermission = PermissionStore().permissionComponentsStore.getPermissionComponent(for: permission.permissionType, modify: {_ in})
 //            let views = getPermissionView(for: permission)
 //            for i in views{
@@ -339,7 +339,7 @@ final class PermissionsSwiftUITests: XCTestCase {
 //            }
 //        }
 //    }
-//    func getPermissionView(for permission: PermissionManager) -> [AnyView]{
+//    func getPermissionView(for permission: PermissionType.PermissionManager) -> [AnyView]{
 //        switch permission {
 //        default:
 //            let views:[AnyView] = AllowButtonStatus.allCases.map{

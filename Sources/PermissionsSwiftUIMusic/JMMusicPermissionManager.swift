@@ -11,13 +11,12 @@ import CorePermissionsSwiftUI
 
 #if !os(tvOS)
 @available(iOS 13.0, tvOS 13.0, *)
-public extension PermissionManager {
-    ///Permission that allows app to control audio playback of the device
+public extension PermissionType.PermissionManager {
     static let music = JMMusicPermissionManager()
 }
 
 @available(iOS 13.0, tvOS 13.0, *)
-public final class JMMusicPermissionManager: PermissionManager {
+public final class JMMusicPermissionManager: PermissionType.PermissionManager {
     
     public override var authorizationStatus: AuthorizationStatus {
         switch MPMediaLibrary.authorizationStatus(){
