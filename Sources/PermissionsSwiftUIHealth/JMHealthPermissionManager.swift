@@ -8,7 +8,6 @@
 import Foundation
 #if !os(tvOS) && PERMISSIONSWIFTUI_HEALTH
 import CorePermissionsSwiftUI
-import HealthKit
 
 @available(iOS 13.0, tvOS 13.0, *)
 public extension PermissionManager {
@@ -24,27 +23,20 @@ public extension PermissionManager {
      
      - Attention: From Apple Developer Documentation: "to help prevent possible leaks of sensitive health information, your app cannot determine whether or not a user has granted permission to read data. If you are not given permission, it simply appears as if there is no data of the requested type in the HealthKit store."
      */
-    static func health(categories: HKAccess) -> JMHealthPermissionManager {
-        JMHealthPermissionManager(categories: categories)
-    }
+    
 }
 
 @available(iOS 13.0, tvOS 13.0, *)
 public class JMHealthPermissionManager: PermissionManager {
     
-    typealias authorizationStatus = HKAuthorizationStatus
     typealias CountComparison = (Int, Int)
-    var categories: HKAccess
-    let healthStore = HKHealthStore()
+    
     override public var permissionType: PermissionType {
         get {
             .health
         }
     }
 
-    init(categories: HKAccess) {
-        self.categories = categories
-    }
     
     /**
      - Note: From Apple Developer Documentation: "to help prevent possible leaks of sensitive health information, your app cannot determine whether or not a user has granted permission to read data. If you are not given permission, it simply appears as if there is no data of the requested type in the HealthKit store."
@@ -55,10 +47,7 @@ public class JMHealthPermissionManager: PermissionManager {
         }
 
     }
-    func mapPermissionAuthorizationStatus(for permissions: Set<HKSampleType>,
-                                        forCount allowDenyCount: inout CountComparison) {
-        
-    }
+
     override public func requestPermission(completion: @escaping (Bool, Error?) -> Void) {
         
         

@@ -33,9 +33,9 @@ public extension Array where Element == PermissionManager {
     static var allCases: [PermissionManager] {
         #if !os(tvOS)
         if #available(iOS 14, *) {
-            return [.location,.locationAlways,.photo, .microphone,.camera,.notification,.calendar,.bluetooth,.contacts,.motion,.reminders,.speech,.tracking,.health(categories: .init())]
+            return [.location,.locationAlways,.photo, .microphone,.camera,.notification,.calendar,.bluetooth,.contacts,.motion,.reminders,.speech,.tracking]
         } else {
-            return [.location,.locationAlways,.photo,.microphone,.camera,.notification,.calendar,.bluetooth,.contacts,.motion,.reminders,.speech,.health(categories: .init())]
+            return [.location,.locationAlways,.photo,.microphone,.camera,.notification,.calendar,.bluetooth,.contacts,.motion,.reminders,.speech]
         }
         #else
         if #available(tvOS 14, *) {
