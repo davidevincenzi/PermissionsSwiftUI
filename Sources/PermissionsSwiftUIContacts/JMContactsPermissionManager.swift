@@ -27,23 +27,11 @@ public final class JMContactsPermissionManager: PermissionManager {
     }
     
     public override var authorizationStatus: AuthorizationStatus {
-        switch CNContactStore.authorizationStatus(for: .contacts){
-        case .authorized:
-            return .authorized
-        case .notDetermined:
-            return .notDetermined
-        default:
-            return .denied
-        }
+        return .notDetermined
     }
 
     override public func requestPermission(completion: @escaping (Bool, Error?) -> Void) {
-            let store = CNContactStore()
-            store.requestAccess(for: .contacts, completionHandler: { (authStatus, error) in
-                DispatchQueue.main.async {
-                    completion(authStatus, error)
-                }
-            })
+            
     }
 }
 #endif

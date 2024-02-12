@@ -55,23 +55,7 @@ public final class JMLocationAlwaysPermissionManager: PermissionManager, CLLocat
     }
     
     override public func requestPermission(completion: @escaping (Bool, Error?) -> Void) {
-        self.completionHandler = completion
-        var status:CLAuthorizationStatus{ 
-            CLLocationManager.authorizationStatus()
-        }
         
-        switch status {
-        case .notDetermined:
-            self.locationManager.delegate = self
-            self.locationManager.requestAlwaysAuthorization()
-        case .authorizedWhenInUse:
-            self.locationManager.delegate = self
-            self.locationManager.requestAlwaysAuthorization()
-        default:
-            if let completionHandler = completionHandler {
-                completionHandler(status == .authorizedAlways ? true : false, nil)
-            }
-        }
     }
     
 }

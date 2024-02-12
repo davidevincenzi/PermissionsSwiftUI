@@ -25,44 +25,11 @@ public final class JMNotificationPermissionManager: PermissionManager {
     }
     
     public override var authorizationStatus: AuthorizationStatus {
-        var notificationSettings: UNNotificationSettings?
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        DispatchQueue.global().async {
-            self.notificationManager.getNotificationSettings { settings in
-                notificationSettings = settings
-                semaphore.signal()
-            }
-        }
-
-        semaphore.wait()
-        guard let settings = notificationSettings else{
-            #if DEBUG
-            print("Notification settings is nil while getting authorization status for JMNotificationPermissionManager")
-            #endif
-            return .notDetermined
-        }
-        switch settings.authorizationStatus{
-        case .authorized:
-            return .authorized
-        case .denied:
-            return .denied
-        case .notDetermined:
-            return .notDetermined
-        case .provisional:
-            return .limited
-        default:
-            return .denied
-        }
+        return .notDetermined
     }
     var notificationManager = UNUserNotificationCenter.current()
 
     override public func requestPermission(completion: @escaping (Bool, Error?) -> Void) {
-        notificationManager.requestAuthorization(options: [.badge,.alert,.sound]){ granted, error in
-            completion(granted, error)
-            
-        }
-       
-        UIApplication.shared.registerForRemoteNotifications()
+        
     }
 }

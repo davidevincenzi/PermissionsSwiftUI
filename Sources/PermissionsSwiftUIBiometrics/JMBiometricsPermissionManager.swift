@@ -37,20 +37,7 @@ public final class JMBiometricPermissionManager: PermissionManager {
     ///
     /// - Returns: The current authorization status, indicating whether biometric authentication is authorized, denied, or not determined.
     public override var authorizationStatus: AuthorizationStatus {
-        let context = LAContext()
-        var error: NSError?
-        
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            return .authorized
-        } else {
-            switch error?.code {
-            case LAError.Code.biometryLockout.rawValue, LAError.Code.biometryNotAvailable.rawValue,
-                LAError.Code.biometryNotEnrolled.rawValue:
-                return .denied
-            default:
-                return .notDetermined
-            }
-        }
+        return .notDetermined
     }
     
     /// Requests permission for biometric authentication with a completion handler.
@@ -60,18 +47,6 @@ public final class JMBiometricPermissionManager: PermissionManager {
     ///                 The closure takes a boolean indicating whether the permission was granted
     ///                 and an optional error in case of failure.
     public override func requestPermission(completion: @escaping (Bool, Error?) -> Void) {
-        let context = LAContext()
         
-        let localizedReason = "Authenticate to access biometric features"
-        
-        context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: localizedReason) { success, error in
-            DispatchQueue.main.async {
-                if success {
-                    completion(true, nil)  // Authorized (true), no error
-                } else {
-                    completion(false, error)  // Not authorized (false), with error
-                }
-            }
-        }
     }
 }

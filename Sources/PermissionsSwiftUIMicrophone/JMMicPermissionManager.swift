@@ -21,23 +21,11 @@ public final class JMMicrophonePermissionManager: PermissionManager {
         .microphone
     }
     public override var authorizationStatus: AuthorizationStatus {
-        switch AVCaptureDevice.authorizationStatus(for: .audio){
-        case .authorized:
-            return .authorized
-        case .notDetermined:
-            return .notDetermined
-        default:
-            return .denied
-        }
+        return .notDetermined
     }
     
     override public func requestPermission(completion: @escaping (Bool, Error?) -> Void) {
-        AVAudioSession.sharedInstance().requestRecordPermission {
-            granted in
-            DispatchQueue.main.async {
-                completion(granted, nil)
-            }
-        }
+        
     }
 }
 #endif

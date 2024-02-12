@@ -7,7 +7,6 @@
 
 import UIKit
 #if !os(tvOS)
-import EventKit
 import CorePermissionsSwiftUI
 
 @available(iOS 13.0, tvOS 13.0, *)
@@ -32,36 +31,8 @@ public final class JMCalendarPermissionManager: EventPermissionManager {
         .calendar
     }
 
-    public override var entityType: EKEntityType {
-        .event
-    }
-
     override public func requestPermission(completion: @escaping (Bool, Error?) -> Void) {
-        switch requestedAccessLevel {
-        case .legacy:
-            requestLegacyPermission(completion)
-        case .full:
-            if #available(iOS 17.0, *) {
-                eventStore.requestFullAccessToEvents{(success, error) in
-                    DispatchQueue.main.async {
-                        completion(success, error)
-                    }
-
-                }
-            } else {
-                requestLegacyPermission(completion)
-            }
-        case .writeOnly:
-            if #available(iOS 17.0, *) {
-                eventStore.requestWriteOnlyAccessToEvents {(success, error) in
-                    DispatchQueue.main.async {
-                        completion(success, error)
-                    }
-                }
-            } else {
-                requestLegacyPermission(completion)
-            }
-        }
+        
     }
 }
 #endif

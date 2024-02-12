@@ -25,31 +25,15 @@ public class JMTrackingPermissionManager: PermissionManager {
     }
     
     override public var authorizationStatus: AuthorizationStatus {
-        switch ATTrackingManager.trackingAuthorizationStatus{
-        case .authorized:
-            return .authorized
-        case .notDetermined:
-            return .notDetermined
-        default:
-            return .denied
-        }
+        return .notDetermined
     }
 
     public static var advertisingIdentifier:UUID{
-        ASIdentifierManager.shared().advertisingIdentifier
+        UUID()
     }
     
     
     public override func requestPermission(completion: @escaping (Bool, Error?) -> Void) {
-        ATTrackingManager.requestTrackingAuthorization { status in
-                  switch status {
-                  case .authorized:
-                      completion(true, nil)
-                  case .notDetermined:
-                      break
-                  default:
-                      completion(false, nil)
-                  }
-              }
+
     }
 }

@@ -51,62 +51,16 @@ public class JMHealthPermissionManager: PermissionManager {
      */
     public override var authorizationStatus: AuthorizationStatus {
         get {
-            var allowDenyCount: CountComparison = (authorized: 0, denied: 0)  //Tracks # of authorized and denied health categories
-            var status: AuthorizationStatus {
-                
-                //Set to notDetermined if all permissions are not determined
-                if allowDenyCount.0 == 0 && allowDenyCount.1 == 0 {
-                    return .notDetermined
-                }
-                
-                //Set to authorized if at least 1 type is authorized
-                if allowDenyCount.0 > 0 {
-                    return .authorized
-                }
-                
-                //If all types are denied, set status to denied
-                else {
-                    return .denied
-                }
-            }
-            
-            //Map the authorization status, remove allowed and denied permissions from array.
-            //Increase allowDenyCount as needed.
-            mapPermissionAuthorizationStatus(for: categories.writePermissions, forCount: &allowDenyCount)
-            
-            //Assume all read permissions are authorized, because Apple restrict app from determining read data
-            if categories.writePermissions.isEmpty {
-                allowDenyCount.0 += categories.readPermissions.count
-            }
-            return status
+            return .notDetermined
         }
 
     }
     func mapPermissionAuthorizationStatus(for permissions: Set<HKSampleType>,
                                         forCount allowDenyCount: inout CountComparison) {
-        for sampleType in permissions {
-            switch healthStore.authorizationStatus(for: sampleType){
-            case .sharingAuthorized:
-                allowDenyCount.0 += 1
-            case .sharingDenied:
-                allowDenyCount.1 += 1
-            default:
-                ()
-            }
-        }
+        
     }
     override public func requestPermission(completion: @escaping (Bool, Error?) -> Void) {
-        guard HKHealthStore.isHealthDataAvailable() else {
-            #if DEBUG
-            print("PermissionsSwiftUI - Health data is not available")
-            #endif
-            completion(false, createUnavailableError())
-            return
-        }
-        healthStore.requestAuthorization(toShare: Set(categories.writePermissions),
-                                         read: Set(categories.readPermissions)) { authorized, error in
-            completion(self.authorizationStatus == .authorized, error)
-        }
+        
         
     }
     func createUnavailableError() -> NSError {

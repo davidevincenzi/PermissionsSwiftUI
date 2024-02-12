@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import EventKit
 
 open class EventPermissionManager: PermissionManager {
     public init(requestedAccessLevel: AccessLevel = .legacy) {
@@ -18,12 +17,6 @@ open class EventPermissionManager: PermissionManager {
 
 
     public var requestedAccessLevel: AccessLevel
-    public let eventStore = EKEventStore()
-    open var entityType: EKEntityType {
-        get {
-            preconditionFailure("This property must be overridden.")
-        }
-    }
 
     public enum AccessLevel {
         case writeOnly
@@ -32,23 +25,11 @@ open class EventPermissionManager: PermissionManager {
     }
 
     public override var authorizationStatus: AuthorizationStatus {
-        switch EKEventStore.authorizationStatus(for: entityType){
-        case .authorized:
-            return .authorized
-        case .notDetermined:
-            return .notDetermined
-        default:
-            return .denied
-        }
+        return .notDetermined
     }
 
     public func requestLegacyPermission( _ completion: @escaping (Bool, Error?) -> Void) {
-        eventStore.requestAccess(to: entityType, completion: {
-            (accessGranted: Bool, error: Error?) in
-            DispatchQueue.main.async {
-                completion(accessGranted, error)
-            }
-        })
+        
     }
 
 }

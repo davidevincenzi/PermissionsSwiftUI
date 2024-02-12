@@ -25,27 +25,11 @@ public final class JMSpeechPermissionManager: PermissionManager {
     }
     
     public override var authorizationStatus: AuthorizationStatus {
-        switch SFSpeechRecognizer.authorizationStatus(){
-        case .authorized:
-            return .authorized
-        case .notDetermined:
-            return .notDetermined
-        default:
-            return .denied
-        }
+        return .notDetermined
     }
 
     override public func requestPermission(completion: @escaping (Bool, Error?) -> Void) {
-        SFSpeechRecognizer.requestAuthorization {authStatus in
-            switch authStatus{
-            case .authorized:
-                completion(true, nil)
-            case .notDetermined:
-                break
-            default:
-                completion(false, nil)
-            }
-        }
+        
     }
 }
 #endif

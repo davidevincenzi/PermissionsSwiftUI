@@ -27,17 +27,8 @@ public final class JMRemindersPermissionManager: EventPermissionManager {
         .reminders
     }
 
-    public override var entityType: EKEntityType {
-        .reminder
-    }
-
     public override func requestPermission(completion: @escaping (Bool, Error?)->()) {
-        if #available(iOS 17.0, *) {
-            eventStore.requestFullAccessToReminders(completion: completion)
-        }
-        else {
-            requestLegacyPermission(completion)
-        }
+        
     }
 }
 #endif

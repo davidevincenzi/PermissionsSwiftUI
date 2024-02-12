@@ -20,29 +20,13 @@ public extension PermissionManager {
 public final class JMMusicPermissionManager: PermissionManager {
     
     public override var authorizationStatus: AuthorizationStatus {
-        switch MPMediaLibrary.authorizationStatus(){
-        case .authorized:
-            return .authorized
-        case .notDetermined:
-            return .notDetermined
-        default:
-            return .denied
-        }
+        return .notDetermined
     }
     public override var permissionType: PermissionType {
         .music
     }
     override public func requestPermission(completion: @escaping (Bool, Error?) -> Void) {
-        MPMediaLibrary.requestAuthorization {authStatus in
-            switch authStatus{
-            case .authorized:
-                completion(true, nil)
-            case .notDetermined:
-                break
-            default:
-                completion(false, nil)
-            }
-        }
+        
     }
 }
 #endif
